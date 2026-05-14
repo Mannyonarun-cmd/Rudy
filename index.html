@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>RUDY — Not Made for Sensitive People</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --red:#ff0040;--dark-red:#8b0000;
+  --orb-bg:#c81030;--glow:rgba(255,0,64,0.55);
+}
+body{
+  background:radial-gradient(ellipse at 50% 0%,#1e0000 0%,#080000 60%,#000 100%);
+  color:rgba(255,220,220,0.92);
+  font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:740px;margin:0 auto;padding:16px;position:relative;z-index:10;}
+
+/* ── Header ── */
+header{text-align:center;padding:20px 0 8px;}
+.logo{
+font-family:'Black Ops One',cursive;
+font-size:clamp(2.8rem,10vw,5.5rem);letter-spacing:6px;
+background:linear-gradient(160deg,#ff7070 0%,#ff0040 45%,#6a0000 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+display:inline-block;
+}
+.headline{
+font-family:'Share Tech Mono',monospace;font-size:clamp(0.6rem,2vw,0.85rem);
+color:rgba(255,50,50,0.5);letter-spacing:4px;text-transform:uppercase;margin-top:6px;
+}
+.tagline{font-size:0.68rem;color:rgba(255,80,80,0.22);letter-spacing:2px;margin-top:4px;font-family:'Share Tech Mono',monospace;}
+
+/* ── Particles ── */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.particle{position:absolute;width:2px;height:2px;background:var(--red);border-radius:50%;animation:pfloat 7s ease-in-out infinite;opacity:0;}
+@keyframes pfloat{0%{transform:translateY(0);opacity:0;}15%{opacity:0.5;}80%{opacity:0.2;}100%{transform:translateY(-90px) translateX(15px);opacity:0;}}
+
+/* ── ORB FACE ── */
+.orb-container{display:flex;justify-content:center;margin:16px 0 8px;position:relative;}
+.orb-scene{position:relative;width:180px;height:200px;display:flex;flex-direction:column;align-items:center;}
+
+/* Arms */
+.arm{
+position:absolute;bottom:28px;width:48px;height:12px;
+background:radial-gradient(ellipse at 50% 40%,#e8203a,#8a000e);
+border-radius:30px;
+box-shadow:0 2px 10px rgba(255,0,40,0.4);
+transition:transform 0.4s ease;
+}
+.arm-left{left:-24px;transform-origin:right center;transform:rotate(30deg);}
+.arm-right{right:-24px;transform-origin:left center;transform:rotate(-30deg);}
+
+/* Hand circles */
+.hand{
+position:absolute;width:18px;height:18px;border-radius:50%;
+background:radial-gradient(circle at 35% 30%,rgba(255,140,160,0.7),#8a000e);
+box-shadow:0 0 10px rgba(255,0,40,0.5);
+}
+.arm-left .hand{left:-9px;top:-3px;}
+.arm-right .hand{right:-9px;top:-3px;}
+
+/* Orb head */
+.orb-head-wrap{position:relative;display:inline-block;}
+.orb-ring{
+position:absolute;border-radius:50%;
+border:1px solid rgba(255,0,64,0.2);
+animation:ringP 3s ease-in-out infinite;pointer-events:none;
+}
+.orb-ring:nth-child(1){inset:-18px;animation-delay:0s;}
+.orb-ring:nth-child(2){inset:-38px;animation-delay:0.8s;border-color:rgba(255,0,64,0.09);}
+.orb-ring:nth-child(3){inset:-58px;animation-delay:1.6s;border-color:rgba(255,0,64,0.045);}
+@keyframes ringP{0%,100%{transform:scale(1);opacity:0.65;}50%{transform:scale(1.1);opacity:1;}}
+
+.orb{
+width:140px;height:140px;border-radius:50%;
+background:
+radial-gradient(circle at 30% 24%,rgba(255,150,170,0.85) 0%,transparent 40%),
+radial-gradient(circle at 68% 74%,rgba(30,0,0,0.95) 0%,transparent 46%),
+radial-gradient(circle at 50% 50%,#c81030 0%,#78000e 38%,#1c0004 100%);
+box-shadow:
+0 0 55px rgba(255,0,64,0.5),
+0 0 120px rgba(255,0,64,0.18),
+inset 0 -28px 44px rgba(0,0,0,0.8),
+inset 0 8px 26px rgba(255,80,100,0.22);
+position:relative;
+animation:orbIdle 3s ease-in-out infinite;
+transition:box-shadow 0.3s;
+overflow:hidden;
+}
+
+/* Ears */
+.ear{
+position:absolute;top:50%;width:16px;height:24px;
+background:radial-gradient(ellipse,#d01030,#6a0000);
+border-radius:50%;transform:translateY(-50%);
+box-shadow:0 0 8px rgba(255,0,40,0.4);
+}
+.ear-left{left:-9px;}
+.ear-right{right:-9px;}
+
+/* Face elements on orb */
+.orb-face{
+position:absolute;inset:0;display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:0;
+pointer-events:none;
+}
+.eyes-row{display:flex;gap:24px;align-items:center;margin-top:8px;}
+.eye{
+width:20px;height:20px;border-radius:50%;
+background:#fff;position:relative;overflow:hidden;
+transition:all 0.3s;
+}
+.pupil{
+width:10px;height:10px;border-radius:50%;background:#111;
+position:absolute;top:5px;left:5px;
+transition:transform 0.3s;
+}
+.pupil::after{content:'';position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;top:2px;left:2px;}
+
+/* Nose */
+.nose{
+width:9px;height:7px;
+border:2px solid rgba(255,180,190,0.55);
+border-top:none;border-radius:0 0 7px 7px;
+margin-top:6px;
+}
+
+/* Mouth */
+.mouth{
+width:40px;height:18px;margin-top:6px;
+border:3px solid rgba(255,200,210,0.7);
+border-top:none;border-radius:0 0 20px 20px;
+transition:all 0.4s;
+position:relative;
+overflow:hidden;
+}
+.mouth.smirk{
+width:32px;border-radius:0 0 16px 4px;
+transform:rotate(-8deg) translateX(5px);
+}
+.mouth.open{
+height:24px;border-radius:0 0 24px 24px;
+background:rgba(80,0,0,0.5);
+}
+.mouth.flat{
+border-radius:0;height:0;border-bottom:3px solid rgba(255,200,210,0.7);
+margin-top:10px;
+}
+.mouth.frown{
+border-top:3px solid rgba(255,200,210,0.7);
+border-bottom:none;border-radius:20px 20px 0 0;margin-top:12px;
+}
+.mouth.grin{
+width:50px;height:22px;border-radius:0 0 25px 25px;
+}
+
+/* Eyebrow */
+.brows-row{display:flex;gap:20px;margin-top:12px;}
+.brow{
+width:20px;height:3px;background:rgba(255,200,210,0.65);
+border-radius:4px;transition:transform 0.3s;
+}
+.brow-left{transform-origin:right center;}
+.brow-right{transform-origin:left center;}
+
+/* Sweat drop */
+.sweat{
+position:absolute;top:10px;right:24px;
+width:7px;height:10px;
+background:rgba(120,180,255,0.7);
+border-radius:50% 50% 50% 0;
+transform:rotate(45deg);
+opacity:0;transition:opacity 0.4s;
+}
+
+.orb-shadow{
+width:110px;height:14px;margin-top:6px;border-radius:50%;
+background:radial-gradient(ellipse,rgba(200,0,40,0.38) 0%,transparent 75%);
+filter:blur(8px);animation:shadowP 3s ease-in-out infinite;
+}
+.orb-label{
+margin-top:10px;font-family:'Share Tech Mono',monospace;
+font-size:0.62rem;letter-spacing:4px;color:rgba(255,100,100,0.55);
+}
+
+@keyframes orbIdle{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
+@keyframes shadowP{0%,100%{transform:scaleX(1);opacity:0.55;}50%{transform:scaleX(1.15);opacity:1;}}
+
+.orb.listening{animation:orbListen 0.42s ease-in-out infinite alternate!important;}
+@keyframes orbListen{
+from{transform:scale(1);box-shadow:0 0 55px rgba(255,0,64,0.5),inset 0 -28px 44px rgba(0,0,0,0.8);}
+to{transform:scale(1.14);box-shadow:0 0 120px rgba(255,30,0,1),0 0 220px rgba(255,0,64,0.5),inset 0 -28px 44px rgba(0,0,0,0.8);}
+}
+.orb.speaking{animation:orbSpeak 0.55s ease-in-out infinite alternate!important;}
+@keyframes orbSpeak{
+from{transform:scale(1.02);box-shadow:0 0 70px rgba(255,120,0,0.65),inset 0 -28px 44px rgba(0,0,0,0.8);}
+to{transform:scale(1.1);box-shadow:0 0 110px rgba(255,140,0,0.88),0 0 240px rgba(255,90,0,0.38),inset 0 -28px 44px rgba(0,0,0,0.8);}
+}
+
+/* Arm animations */
+.orb-scene.wave .arm-left{animation:waveArm 0.5s ease-in-out 3;}
+@keyframes waveArm{0%,100%{transform:rotate(30deg);}50%{transform:rotate(60deg) translateY(-8px);}}
+.orb-scene.shrug .arm-left{transform:rotate(-20deg);}
+.orb-scene.shrug .arm-right{transform:rotate(20deg);}
+.orb-scene.crossed .arm-left{transform:rotate(60deg) translateX(40px);}
+.orb-scene.crossed .arm-right{transform:rotate(-60deg) translateX(-40px);}
+
+/* ── Roast box ── */
+.roast-bubble{
+max-width:580px;margin:16px auto;
+background:linear-gradient(135deg,rgba(80,0,0,0.12),rgba(0,0,0,0.42));
+border:1px solid rgba(139,0,0,0.28);border-radius:18px;
+padding:18px 20px;display:none;position:relative;overflow:hidden;
+}
+.roast-bubble::before{
+content:'';position:absolute;top:0;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,rgba(255,0,64,0.38),transparent);
+}
+.roast-bubble.active{display:block;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes popIn{from{opacity:0;transform:scale(0.9) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+.roast-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.roast-text{
+font-size:clamp(0.95rem,2.8vw,1.15rem);line-height:1.6;
+color:rgba(255,242,242,0.92);font-weight:600;
+font-family:'Barlow',sans-serif;flex:1;
+}
+.roast-actions{display:flex;flex-direction:column;gap:7px;flex-shrink:0;}
+.icon-btn{
+width:32px;height:32px;border-radius:8px;
+background:rgba(139,0,0,0.18);border:1px solid rgba(139,0,0,0.28);
+color:rgba(255,130,130,0.62);cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+font-size:0.9rem;transition:all 0.18s;
+}
+.icon-btn:hover{background:rgba(139,0,0,0.38);color:white;}
+.roast-sig{margin-top:10px;font-size:0.68rem;color:rgba(255,80,80,0.3);font-family:'Share Tech Mono',monospace;}
+
+/* ── Mic ── */
+.mic-section{max-width:560px;margin:14px auto 6px;text-align:center;}
+.mic-title{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:3px;color:rgba(255,80,80,0.38);text-transform:uppercase;margin-bottom:14px;}
+.mic-btn{
+width:88px;height:88px;border-radius:50%;
+border:2.5px solid rgba(255,0,64,0.4);
+background:radial-gradient(circle at 33% 26%,rgba(255,70,95,0.2),rgba(80,0,0,0.9));
+color:white;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 10px;
+box-shadow:0 0 30px rgba(255,0,64,0.18),inset 0 -14px 26px rgba(0,0,0,0.55);
+user-select:none;-webkit-user-select:none;
+transition:border-color 0.2s,box-shadow 0.2s;
+-webkit-tap-highlight-color:transparent;
+touch-action:manipulation;
+}
+.mic-btn:hover{border-color:rgba(255,0,64,0.7);box-shadow:0 0 55px rgba(255,0,64,0.38);}
+.mic-btn.recording{border-color:var(--red);animation:micP 0.38s ease-in-out infinite alternate;}
+@keyframes micP{from{transform:scale(1);box-shadow:0 0 40px rgba(255,0,64,0.5);}to{transform:scale(1.1);box-shadow:0 0 100px rgba(255,0,64,0.95);}}
+.mic-hint{font-size:0.72rem;color:rgba(255,120,120,0.3);font-family:'Share Tech Mono',monospace;}
+.mic-status{min-height:22px;margin-top:6px;font-size:0.72rem;color:rgba(255,150,150,0.6);font-family:'Share Tech Mono',monospace;}
+.transcript-pill{
+display:inline-block;background:rgba(80,0,0,0.22);border:1px solid rgba(139,0,0,0.3);
+border-radius:20px;padding:5px 14px;font-size:0.72rem;color:rgba(255,190,190,0.75);
+margin-top:6px;max-width:100%;word-break:break-word;
+}
+
+/* ── Divider ── */
+.divider{
+display:flex;align-items:center;gap:12px;max-width:560px;margin:10px auto 16px;
+color:rgba(255,80,80,0.18);font-size:0.6rem;font-family:'Share Tech Mono',monospace;letter-spacing:3px;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(139,0,0,0.18);}
+
+/* ── Upload / Camera ── */
+.webcam-section{max-width:560px;margin:0 auto;}
+.upload-area{
+border:2px dashed rgba(139,0,0,0.26);border-radius:14px;padding:18px;
+text-align:center;cursor:pointer;transition:all 0.3s;background:rgba(0,0,0,0.2);
+margin-bottom:10px;
+}
+.upload-area:hover{border-color:rgba(255,0,64,0.45);background:rgba(60,0,0,0.12);}
+.upload-area p{color:rgba(255,130,130,0.38);font-size:0.75rem;margin-top:6px;}
+.upload-wrap{position:relative;}
+#uploadedPreview{max-width:100%;border-radius:12px;margin-top:8px;display:none;border:1px solid rgba(139,0,0,0.25);}
+#photoOverlayCanvas{position:absolute;inset:8px 0 0 0;width:100%;height:calc(100% - 8px);pointer-events:none;display:none;}
+.video-container{
+position:relative;width:100%;max-width:560px;margin:0 auto;
+aspect-ratio:16/9;background:rgba(0,0,0,0.65);border-radius:16px;overflow:hidden;
+border:1px solid rgba(139,0,0,0.15);
+}
+.video-container video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);}
+.video-placeholder svg{width:40px;height:40px;margin-bottom:8px;}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,0,64,0.7),transparent);box-shadow:0 0 12px rgba(255,0,64,0.9);display:none;}
+.scan-line.active{display:block;animation:scan 1.7s linear infinite;}
+@keyframes scan{0%{top:0%;}100%{top:100%;}}
+.live-badge{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:20px;font-size:0.65rem;font-family:'Share Tech Mono',monospace;}
+.live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.15;}}
+.controls{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.btn{padding:10px 22px;border:none;border-radius:50px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.22s;display:flex;align-items:center;gap:6px;font-family:'Barlow',sans-serif;touch-action:manipulation;}
+.btn-primary{background:linear-gradient(135deg,#6e0000,#c01030);color:white;box-shadow:0 4px 16px rgba(180,0,40,0.3);}
+.btn-primary:hover{box-shadow:0 4px 28px rgba(255,0,64,0.5);transform:translateY(-1px);}
+.btn-primary:disabled{opacity:0.42;cursor:not-allowed;transform:none;}
+.btn-secondary{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.52);border:1px solid rgba(255,255,255,0.08);}
+
+/* iOS Permission Overlay */
+.perm-overlay{
+position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;
+display:none;flex-direction:column;align-items:center;justify-content:center;
+padding:24px;text-align:center;
+}
+.perm-overlay.active{display:flex;}
+.perm-overlay h2{font-family:'Black Ops One',cursive;font-size:1.8rem;color:var(--red);margin-bottom:12px;}
+.perm-overlay p{color:rgba(255,200,200,0.7);font-size:0.9rem;line-height:1.6;margin-bottom:20px;max-width:400px;}
+.perm-btn{background:linear-gradient(135deg,#6e0000,#c01030);color:white;border:none;border-radius:50px;padding:14px 32px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
+
+/* Loading */
+.loading{text-align:center;padding:24px;color:rgba(255,100,100,0.5);}
+.spinner{width:30px;height:30px;border:3px solid rgba(139,0,0,0.22);border-top-color:var(--red);border-radius:50%;margin:0 auto 10px;animation:spin 0.75s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Footer */
+footer{text-align:center;padding:28px 16px;border-top:1px solid rgba(139,0,0,0.1);margin-top:32px;}
+.footer-credit{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:rgba(255,80,80,0.26);letter-spacing:1px;line-height:1.9;}
+
+/* Toast */
+.toast{
+position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+background:rgba(20,0,0,0.92);border:1px solid rgba(139,0,0,0.4);border-radius:12px;
+padding:10px 20px;font-size:0.8rem;color:rgba(255,150,150,0.9);font-family:'Share Tech Mono',monospace;
+z-index:1001;transition:transform 0.3s ease;pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+
+<!-- iOS Permission Overlay -->
+<div class="perm-overlay" id="permOverlay">
+  <h2>ENABLE MIC & CAMERA</h2>
+  <p>iPhone Safari needs your permission to use the microphone and camera. Tap below, then allow access when prompted.</p>
+  <button class="perm-btn" onclick="requestPermissions()">🎙️ ENABLE ACCESS</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<div class="container">
+
+<header>
+  <div class="logo">RUDY</div>
+  <p class="headline">NOT MADE FOR SENSITIVE PEOPLE</p>
+  <p class="tagline">AI Roast Master · Face Analysis · Voice Synthesis</p>
+</header>
+
+<!-- ORB FACE -->
+<div class="orb-container">
+  <div class="orb-scene" id="orbScene">
+    <div class="arm arm-left"><div class="hand"></div></div>
+    <div class="arm arm-right"><div class="hand"></div></div>
+    <div class="orb-head-wrap">
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb" id="orb">
+        <div class="ear ear-left"></div>
+        <div class="ear ear-right"></div>
+        <div class="orb-face">
+          <div class="brows-row">
+            <div class="brow brow-left" id="browL"></div>
+            <div class="brow brow-right" id="browR"></div>
+          </div>
+          <div class="eyes-row">
+            <div class="eye" id="eyeL"><div class="pupil" id="pupilL"></div></div>
+            <div class="eye" id="eyeR"><div class="pupil" id="pupilR"></div></div>
+          </div>
+          <div class="nose"></div>
+          <div class="mouth" id="mouth"></div>
+        </div>
+        <div class="sweat" id="sweat"></div>
+      </div>
+    </div>
+    <div class="orb-shadow"></div>
+    <div class="orb-label" id="orbLabel">RUDY</div>
+  </div>
+</div>
+
+<!-- Mic -->
+<div class="mic-section">
+  <div class="mic-title">🎙️ hold & speak — rudy claps back</div>
+  <button class="mic-btn" id="micBtn"
+    ontouchstart="startListening(event)" ontouchend="stopListening(event)"
+    onmousedown="startListening()" onmouseup="stopListening()">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+      <line x1="12" y1="19" x2="12" y2="23"/>
+      <line x1="8" y1="23" x2="16" y2="23"/>
+    </svg>
+  </button>
+  <div class="mic-hint">hold to talk. rudy will respond to exactly what you said.</div>
+  <div class="mic-status" id="micStatus"></div>
+  <div id="transcriptPill" style="display:none;"></div>
+</div>
+
+<div class="divider">OR SHOW YOUR FACE</div>
+
+<div class="webcam-section">
+  <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,100,100,0.4)" stroke-width="1.8">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <polyline points="21 15 16 10 5 21"/>
+    </svg>
+    <p>upload a pic · rudy will study it and destroy you</p>
+    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+    <div class="upload-wrap">
+      <img id="uploadedPreview" alt="uploaded">
+      <canvas id="photoOverlayCanvas"></canvas>
+    </div>
+    <div id="uploadRoastControls" style="display:none;margin-top:10px;">
+      <button class="btn btn-primary" onclick="generateRoastFromPhoto(event)">🔥 roast this photo</button>
+    </div>
+  </div>
+
+  <div class="divider">OR USE WEBCAM</div>
+
+  <div class="video-container">
+    <div class="video-placeholder" id="placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+      <p style="font-size:0.78rem;">camera is off</p>
+    </div>
+    <video id="video" autoplay playsinline muted style="display:none;"></video>
+    <canvas id="overlayCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+    <div class="scan-line" id="scanLine"></div>
+    <div class="live-badge" id="liveBadge" style="display:none;"><div class="live-dot"></div><span>LIVE</span></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" id="cameraBtn" onclick="toggleCamera()">📷 start camera</button>
+    <button class="btn btn-primary" id="roastBtn" onclick="generateRoast()" style="display:none;">🔥 roast me</button>
+    <button class="btn btn-secondary" id="stopBtn" onclick="stopCamera()" style="display:none;">⏹ stop</button>
+  </div>
+</div>
+
+<!-- Roast bubble -->
+<div class="roast-bubble" id="roastDisplay">
+  <div class="roast-inner">
+    <div class="roast-text" id="roastText"></div>
+    <div class="roast-actions">
+      <button class="icon-btn" onclick="speakRoast()" title="replay">🔊</button>
+      <button class="icon-btn" id="copyBtn" onclick="copyRoast()" title="copy">📋</button>
+    </div>
+  </div>
+  <div class="roast-sig">— rudy, ai roast master</div>
+</div>
+
+<!-- Loading -->
+<div class="loading" id="loading" style="display:none;">
+  <div class="spinner"></div>
+  <p id="loadingMsg" style="font-size:0.8rem;color:rgba(255,100,100,0.5);">cooking something up...</p>
+</div>
+
+<footer>
+  <div class="footer-credit">created by a philosopher genius with dreads like chief keef known as Glenn</div>
+</footer>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────
+let stream = null;
+let currentRoast = '';
+let recognition = null;
+let isListening = false;
+let faceDetector = null;
+let liveFaceLoop = null;
+let isSpeaking = false;
+let convoHistory = [];
+let voiceConfigured = false;
+let preferredVoice = null;
+
+// ── iOS Detection ─────────────────────────────────────────────
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+// ── FACE EXPRESSIONS ───────────────────────────────────────────
+const expressions = {
+  idle:     {browL:'rotate(0deg)',  browR:'rotate(0deg)',  mouth:'',       pupils:'5px,5px', scene:'',        sweat:false},
+  smirk:    {browL:'rotate(-8deg)',browR:'rotate(0deg)',  mouth:'smirk',  pupils:'3px,7px', scene:'',        sweat:false},
+  laugh:    {browL:'rotate(5deg)', browR:'rotate(5deg)',  mouth:'grin',   pupils:'5px,5px', scene:'wave',    sweat:false},
+  eyeroll:  {browL:'rotate(0deg)', browR:'rotate(0deg)',  mouth:'flat',   pupils:'5px,2px', scene:'shrug',   sweat:false},
+  annoyed:  {browL:'rotate(-15deg)',browR:'rotate(15deg)',mouth:'flat',   pupils:'5px,5px', scene:'crossed', sweat:false},
+  shocked:  {browL:'rotate(10deg)',browR:'rotate(10deg)', mouth:'open',   pupils:'5px,5px', scene:'',        sweat:true},
+  listening:{browL:'rotate(5deg)', browR:'rotate(-5deg)', mouth:'',       pupils:'8px,5px', scene:'',        sweat:false},
+  speaking: {browL:'rotate(-5deg)',browR:'rotate(5deg)',  mouth:'open',   pupils:'5px,5px', scene:'',        sweat:false},
+  sad:      {browL:'rotate(12deg)',browR:'rotate(-12deg)',mouth:'frown',  pupils:'5px,5px', scene:'',        sweat:false},
+};
+
+function setExpression(name) {
+  const ex = expressions[name] || expressions.idle;
+  document.getElementById('browL').style.transform = ex.browL;
+  document.getElementById('browR').style.transform = ex.browR;
+  const mouth = document.getElementById('mouth');
+  mouth.className = 'mouth';
+  if (ex.mouth) mouth.classList.add(ex.mouth);
+  const [pt, pl] = (ex.pupils || '5px,5px').split(',');
+  document.getElementById('pupilL').style.top = pt;
+  document.getElementById('pupilL').style.left = pl;
+  document.getElementById('pupilR').style.top = pt;
+  document.getElementById('pupilR').style.left = pl;
+  document.getElementById('sweat').style.opacity = ex.sweat ? '1' : '0';
+  const scene = document.getElementById('orbScene');
+  scene.className = 'orb-scene';
+  if (ex.scene) scene.classList.add(ex.scene);
+}
+
+// ── Orb state ─────────────────────────────────────────────────
+function updateOrb(state) {
+  const orb = document.getElementById('orb');
+  document.getElementById('orbLabel').textContent = state;
+  orb.classList.remove('listening','speaking');
+  if (state === 'LISTENING') { orb.classList.add('listening'); setExpression('listening'); }
+  else if (state === 'SPEAKING') { orb.classList.add('speaking'); setExpression('speaking'); }
+  else if (state === 'ANALYZING') { setExpression('shocked'); }
+  else { setExpression('idle'); }
+}
+
+// ── Voice Configuration (Glenn's style) ──────────────────────
+function configureVoice() {
+  if (!('speechSynthesis' in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  
+  const maleVoices = voices.filter(v => 
+    /en/i.test(v.lang) && (
+      /fred|daniel|alex|david|bruce|ralph|tom/i.test(v.name.toLowerCase()) ||
+      v.name.toLowerCase().includes('male')
+    )
+  );
+  
+  if (maleVoices.length) {
+    preferredVoice = maleVoices.find(v => /fred/i.test(v.name)) || maleVoices[0];
+  } else {
+    preferredVoice = voices.find(v => /en/i.test(v.lang)) || voices[0];
+  }
+  voiceConfigured = true;
+}
+
+// ── Speech synthesis (Glenn-style tuning) ─────────────────────
+function speakText(text, onDone) {
+  if (!('speechSynthesis' in window)) { if (onDone) onDone(); return; }
+  window.speechSynthesis.cancel();
+  isSpeaking = true;
+  updateOrb('SPEAKING');
+  
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.82;
+  u.pitch = 0.78;
+  u.volume = 1.0;
+  
+  if (preferredVoice) {
+    u.voice = preferredVoice;
+  }
+  
+  u.onend = () => { 
+    isSpeaking = false; 
+    updateOrb('IDLE'); 
+    if (onDone) onDone(); 
+  };
+  u.onerror = (e) => { 
+    isSpeaking = false; 
+    updateOrb('IDLE'); 
+    if (onDone) onDone(); 
+  };
+  
+  window.speechSynthesis.speak(u);
+}
+
+function speakRoast() { 
+  if (currentRoast) speakText(currentRoast); 
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Display roast ─────────────────────────────────────────────
+function displayRoast(text) {
+  currentRoast = text;
+  document.getElementById('roastText').textContent = text;
+  const rd = document.getElementById('roastDisplay');
+  rd.classList.remove('active');
+  void rd.offsetWidth;
+  rd.classList.add('active');
+  const ex = expressionFromRoast(text);
+  const orb = document.getElementById('orb');
+  orb.classList.add('speaking');
+  setExpression('speaking');
+  speakText(text, () => {
+    setExpression(ex);
+    orb.classList.remove('speaking');
+  });
+}
+
+function copyRoast() {
+  if (!currentRoast) return;
+  navigator.clipboard?.writeText(currentRoast);
+  showToast('copied to clipboard');
+  const btn = document.getElementById('copyBtn');
+  const o = btn.textContent; btn.textContent = '✓';
+  setTimeout(() => btn.textContent = o, 1800);
+}
+
+// ── Loading ───────────────────────────────────────────────────
+async function withLoading(label, ms) {
+  document.getElementById('loadingMsg').textContent = label;
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('roastDisplay').classList.remove('active');
+  document.getElementById('scanLine').classList.add('active');
+  updateOrb('ANALYZING');
+  await new Promise(r => setTimeout(r, ms));
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('scanLine').classList.remove('active');
+}
+
+// ── BAD RUDY responses ─────────────────────────────────────────
+const roastPool = [
+  "bruh. your whole existence is giving participation trophy energy fr.",
+  "nah i can't. this is not it and you know it's not it.",
+  "okay but why do you look like that and still have confidence? respect i guess.",
+  "idk what you expected showing up looking like that but okay.",
+  "not me having to roast someone who did this to themselves 💀",
+  "you really said 'let me embarrass myself today' and then committed fr.",
+  "bro looks like he googled 'how to be a person' and only read the first result.",
+  "the audacity is unmatched honestly. like who told you? who lied to you?",
+  "ngl your vibe is giving 'i peaked in a dream i had once' and i feel bad.",
+  "you walked in like you owned the place and the place is clearly struggling.",
+  "bestie no. we're not doing this. go home and come back different.",
+  "the way this is not giving what you think it's giving rn 😭",
+  "i've seen scarecrows with more rizz than whatever this is.",
+  "bro really said 'i'm that guy' and the universe said no respectfully.",
+  "your whole situation is giving 'autocomplete error' like something went wrong.",
+  "not gonna lie this is kind of impressive in the worst possible way.",
+  "the confidence without cause is sending me omg 💀",
+  "you really said 'let me just exist like this' and nobody stopped you.",
+  "bro your energy is a 2 out of 10 and i'm being generous rn.",
+  "you got main character energy but you're clearly a background character bro.",
+  "nah chill. i can see the delusion from here and it's too much.",
+  "the way you thought this was fine 😭 who's in your corner?",
+  "okay you're doing something but it's not what you think it is at all.",
+  "i can't help someone who looks this unbothered about being this bad.",
+  "you're like a wifi signal that promises a lot and delivers absolutely nothing.",
+  "bestie the audacity is off the charts rn and not in a good way.",
+  "the way your face said 'minimum effort maximum presence' 💀 respect.",
+  "bro really thought he was built different and lowkey he is. just not how he meant.",
+  "you got the energy of someone who's always late and never apologizes.",
+  "ngl you look like a plot twist that nobody asked for and everyone survived.",
+  "this ain't it chief. this ain't close to it. this is the opposite of it.",
+  "you really said 'i'm fine' and then showed up like this. we see you.",
+  "okay the lore behind how you got here must be wild fr.",
+];
+
+const contextual = [
+  (t) => `oh you said "${t}"?? bruh that's exactly why you're in this situation fr.`,
+  (t) => `nah wait— you actually said "${t}" out loud and thought that was okay?`,
+  (t) => `"${t}" is wild coming from someone who looks like that ngl 💀`,
+  (t) => `the way you brought up "${t}" like it helps you. it does not help you.`,
+  (t) => `bro said "${t}" 😭 okay i see you, you're chaotic and i respect it a little.`,
+  (t) => `idk why you said "${t}" but it tracks honestly given everything.`,
+];
+
+const asiaRoasts = [
+  "asia? oh she's the human version of a loading screen that never finishes fr.",
+  "asia walked in like the main character and left like a deleted file 💀",
+  "ngl asia has the confidence of a 10 and the execution of a captcha fail.",
+  "asia said 'i'm that girl' and the universe said 'idk about all that bestie'.",
+  "asia be getting ready for 2 hours and pulling up looking like she gave up in the uber.",
+  "the audacity asia carries daily should be studied by scientists fr.",
+  "asia out here thinking she's mysterious. baby you're not mysterious you're just confusing.",
+];
+
+const madeByResponses = [
+  "a short sexy dude with chief keef dreads and a smile that can light up your mama room. that's all you need to know.",
+  "glenn. philosopher genius. chief keef dreads. short, dangerous smile. built this. moved on.",
+  "idk why you're asking but it was Glenn — chief keef dreads, smile so bright it could power your whole block fr.",
+];
+
+function pickRoast(spoken) {
+  if (spoken && spoken.length > 3) {
+    const words = spoken.split(' ').filter(w =>
+      w.length > 3 &&
+      !/^(that|this|what|with|have|been|they|just|your|from|about|would|could|should|like|really|yeah|okay|bruh|idk|nah)$/i.test(w)
+    );
+    if (words.length && Math.random() < 0.65) {
+      const topic = words[Math.floor(Math.random() * words.length)].toLowerCase();
+      const tpl = contextual[Math.floor(Math.random() * contextual.length)];
+      return tpl(topic);
+    }
+  }
+  return roastPool[Math.floor(Math.random() * roastPool.length)];
+}
+
+function checkSpecialTriggers(text) {
+  const t = text.toLowerCase();
+  if (t.includes('asia')) return asiaRoasts[Math.floor(Math.random() * asiaRoasts.length)];
+  if (t.includes('who made') || t.includes('who built') || t.includes('who created') || t.includes('who are you') || t.includes('made this'))
+    return madeByResponses[Math.floor(Math.random() * madeByResponses.length)];
+  return null;
+}
+
+function expressionFromRoast(text) {
+  const t = text.toLowerCase();
+  if (t.includes('💀') || t.includes('omg') || t.includes('sending me')) return 'laugh';
+  if (t.includes('nah') || t.includes('not it') || t.includes('no.')) return 'annoyed';
+  if (t.includes('idk') || t.includes('shrug') || t.includes('i guess')) return 'eyeroll';
+  if (t.includes('wait') || t.includes('wild') || t.includes('wtf')) return 'shocked';
+  if (t.includes('ngl') || t.includes('respect') || t.includes('bestie')) return 'smirk';
+  return 'smirk';
+}
+
+// ── Face detection ────────────────────────────────────────────
+async function initFaceDetector() {
+  try {
+    const { FaceDetector, FilesetResolver } = window.VisionTasks || {};
+    if (!FaceDetector) return;
+    const vision = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+    );
+    faceDetector = await FaceDetector.createFromOptions(vision, {
+      baseOptions: { modelAssetPath: "https://storage.googleapis.com/mediapipe-assets/face_detector_short_range.tflite" },
+      runningMode: "VIDEO", minDetectionConfidence: 0.5
+    });
+  } catch(e) {
+    console.log('Face detector init failed:', e);
+  }
+}
+
+function resizeCanvas(canvas, source) {
+  const r = source.getBoundingClientRect();
+  canvas.width = Math.round(r.width);
+  canvas.height = Math.round(r.height);
+}
+
+function drawDetections(canvas, detections, sw, sh) {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  detections.forEach((det, i) => {
+    const b = det.boundingBox;
+    const x = (b.originX/sw)*canvas.width, y = (b.originY/sh)*canvas.height;
+    const w = (b.width/sw)*canvas.width,   h = (b.height/sh)*canvas.height;
+    ctx.strokeStyle='#ff0040'; ctx.lineWidth=2.5;
+    ctx.strokeRect(x,y,w,h);
+    ctx.fillStyle='rgba(255,0,64,0.88)'; ctx.fillRect(x,y-22,134,19);
+    ctx.fillStyle='#fff'; ctx.font='11px Share Tech Mono, monospace';
+    ctx.fillText('TARGET '+(i+1)+' ACQUIRED',x+6,y-8);
+  });
+}
+
+async function detectLiveFaces() {
+  if (!faceDetector || !stream) return;
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('overlayCanvas');
+  resizeCanvas(canvas, video);
+  try {
+    const r = faceDetector.detectForVideo(video, performance.now());
+    drawDetections(canvas, r.detections||[], video.videoWidth, video.videoHeight);
+  } catch(e) {}
+  liveFaceLoop = requestAnimationFrame(detectLiveFaces);
+}
+
+// ── iOS Permission Handling ───────────────────────────────────
+function checkPermissions() {
+  if (isIOS || isSafari) {
+    if (!localStorage.getItem('rudy_perms_requested')) {
+      document.getElementById('permOverlay').classList.add('active');
+    }
+  }
+}
+
+async function requestPermissions() {
+  document.getElementById('permOverlay').classList.remove('active');
+  localStorage.setItem('rudy_perms_requested', 'true');
+  
+  try {
+    const testStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    testStream.getTracks().forEach(t => t.stop());
+  } catch(e) {}
+  
+  showToast('permissions enabled — you good to go');
+}
+
+// ── Camera ────────────────────────────────────────────────────
+async function toggleCamera() {
+  if (stream) return;
+  try {
+    if (!faceDetector) await initFaceDetector();
+    
+    const constraints = {
+      video: { 
+        facingMode: 'user',
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      },
+      audio: false
+    };
+    
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const video = document.getElementById('video');
+    video.srcObject = stream;
+    await video.play();
+    video.style.display = 'block';
+    document.getElementById('placeholder').style.display = 'none';
+    document.getElementById('liveBadge').style.display = 'flex';
+    document.getElementById('cameraBtn').style.display = 'none';
+    document.getElementById('roastBtn').style.display = 'flex';
+    document.getElementById('stopBtn').style.display = 'flex';
+    detectLiveFaces();
+    updateOrb('IDLE');
+    setExpression('smirk');
+  } catch(err) {
+    let msg;
+    if (err.name === 'NotAllowedError') {
+      msg = 'camera blocked. go to Settings > Safari > Camera and allow access, then refresh.';
+    } else if (err.name === 'NotFoundError') {
+      msg = 'no camera found on this device.';
+    } else {
+      msg = 'camera error: ' + err.message;
+    }
+    showToast(msg);
+  }
+}
+
+function stopCamera() {
+  if (liveFaceLoop) { cancelAnimationFrame(liveFaceLoop); liveFaceLoop = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  const video = document.getElementById('video');
+  video.srcObject = null; video.style.display = 'none';
+  document.getElementById('placeholder').style.display = 'flex';
+  document.getElementById('liveBadge').style.display = 'none';
+  document.getElementById('cameraBtn').style.display = 'flex';
+  document.getElementById('roastBtn').style.display = 'none';
+  document.getElementById('stopBtn').style.display = 'none';
+  const c = document.getElementById('overlayCanvas');
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+  document.getElementById('roastDisplay').classList.remove('active');
+  updateOrb('RUDY'); setExpression('idle');
+}
+
+function roastFromDetection(detections) {
+  if (!detections?.length) return "bruh i can't even see your face and i'm already exhausted by your energy.";
+  if (detections.length > 1) return "nah you brought people?? everyone in frame is getting roasted. nobody is safe here fr.";
+  const b = detections[0].boundingBox;
+  const area = b.width * b.height;
+  if (area > 90000) return "bro the camera is so close i can see every bad decision your face ever made. back up fr.";
+  if (area < 8000) return "i can barely see you and i'm already not impressed. come closer so i can judge you properly.";
+  return pickRoast('');
+}
+
+async function generateRoast() {
+  const btn = document.getElementById('roastBtn');
+  btn.disabled = true;
+  await withLoading('reading your face...', 1200);
+  let roast = pickRoast('');
+  try {
+    const video = document.getElementById('video');
+    if (faceDetector && video.videoWidth) {
+      const r = faceDetector.detect(video);
+      roast = roastFromDetection(r.detections||[]);
+    }
+  } catch(e) {}
+  displayRoast(roast);
+  btn.disabled = false;
+}
+
+// ── Photo upload ──────────────────────────────────────────────
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = document.getElementById('uploadedPreview');
+    img.onload = async () => {
+      document.getElementById('uploadRoastControls').style.display = 'block';
+      if (!faceDetector) await initFaceDetector();
+      const canvas = document.getElementById('photoOverlayCanvas');
+      canvas.style.display = 'block';
+      resizeCanvas(canvas, img);
+      try {
+        const r = faceDetector.detect(img);
+        drawDetections(canvas, r.detections||[], img.naturalWidth, img.naturalHeight);
+      } catch(e) {}
+    };
+    img.src = e.target.result;
+    img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function generateRoastFromPhoto(e) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  await withLoading('studying the photo...', 1300);
+  const img = document.getElementById('uploadedPreview');
+  if (!faceDetector) await initFaceDetector();
+  let detections = [];
+  try {
+    const r = faceDetector.detect(img);
+    detections = r.detections||[];
+    const canvas = document.getElementById('photoOverlayCanvas');
+    canvas.style.display = 'block';
+    resizeCanvas(canvas, img);
+    drawDetections(canvas, detections, img.naturalWidth, img.naturalHeight);
+  } catch(e) {}
+  displayRoast(roastFromDetection(detections));
+  btn.disabled = false;
+}
+
+// ── Mic ───────────────────────────────────────────────────────
+function startListening(e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  if (isListening || isSpeaking) return;
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    document.getElementById('micStatus').textContent = 'speech not supported. use chrome or safari.';
+    return;
+  }
+
+  recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  recognition.maxAlternatives = 1;
+  isListening = true;
+
+  document.getElementById('micBtn').classList.add('recording');
+  document.getElementById('micStatus').textContent = '🔴 listening...';
+  document.getElementById('transcriptPill').style.display = 'none';
+  updateOrb('LISTENING');
+
+  let finalText = '';
+
+  recognition.onresult = (event) => {
+    let interim = ''; finalText = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const t = event.results[i][0].transcript;
+      if (event.results[i].isFinal) finalText += t;
+      else interim += t;
+    }
+    const show = finalText || interim;
+    const pill = document.getElementById('transcriptPill');
+    pill.style.display = 'block';
+    pill.innerHTML = '<span class="transcript-pill">' + show + '</span>';
+  };
+
+  recognition.onend = async () => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('recording');
+
+    const pill = document.getElementById('transcriptPill');
+    const inner = pill.querySelector('.transcript-pill');
+    const spoken = (inner ? inner.textContent : finalText).trim();
+
+    if (!spoken) {
+      document.getElementById('micStatus').textContent = "rudy didn't catch that. try again.";
+      updateOrb('RUDY'); setExpression('eyeroll');
+      return;
+    }
+
+    convoHistory.push(spoken);
+    if (convoHistory.length > 6) convoHistory.shift();
+    document.getElementById('micStatus').textContent = '';
+
+    const special = checkSpecialTriggers(spoken);
+    await withLoading('cooking something up...', 850);
+    displayRoast(special || pickRoast(spoken));
+  };
+
+  recognition.onerror = (err) => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    if (err.error === 'not-allowed') {
+      document.getElementById('micStatus').textContent = 'mic blocked. go to Settings > Safari > Microphone and allow.';
+    } else if (err.error === 'no-speech') {
+      document.getElementById('micStatus').textContent = 'rudy heard nothing. speak up fr.';
+    } else if (err.error === 'aborted') {
+      document.getElementById('micStatus').textContent = '';
+    } else {
+      document.getElementById('micStatus').textContent = 'error: ' + err.error + ' — try again.';
+    }
+    updateOrb('RUDY'); setExpression('annoyed');
+  };
+
+  try { recognition.start(); }
+  catch(err) {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    document.getElementById('micStatus').textContent = 'mic start failed. allow mic then retry.';
+  }
+}
+
+function stopListening(e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  if (!isListening || !recognition) return;
+  try { recognition.stop(); } catch(err) {}
+}
+
+// ── Particles ─────────────────────────────────────────────────
+function createParticles() {
+  const c = document.getElementById('particles');
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (Math.random()*100)+'%';
+    p.style.top = (Math.random()*100)+'%';
+    p.style.animationDelay = (Math.random()*7)+'s';
+    p.style.animationDuration = (4+Math.random()*5)+'s';
+    c.appendChild(p);
+  }
+}
+
+// ── Pupil tracking ────────────────────────────────────────────
+document.addEventListener('mousemove', (e) => {
+  const orb = document.getElementById('orb');
+  if (!orb) return;
+  const rect = orb.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  const dx = (e.clientX - cx) / window.innerWidth;
+  const dy = (e.clientY - cy) / window.innerHeight;
+  const maxMove = 5;
+  const px = 5 + dx * maxMove;
+  const py = 5 + dy * maxMove;
+  ['pupilL','pupilR'].forEach(id => {
+    document.getElementById(id).style.left = px + 'px';
+    document.getElementById(id).style.top = py + 'px';
+  });
+});
+
+// Touch tracking for mobile
+let touchX = 0, touchY = 0;
+document.addEventListener('touchmove', (e) => {
+  touchX = e.touches[0].clientX;
+  touchY = e.touches[0].clientY;
+  const orb = document.getElementById('orb');
+  if (!orb) return;
+  const rect = orb.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  const dx = (touchX - cx) / window.innerWidth;
+  const dy = (touchY - cy) / window.innerHeight;
+  const maxMove = 5;
+  const px = 5 + dx * maxMove;
+  const py = 5 + dy * maxMove;
+  ['pupilL','pupilR'].forEach(id => {
+    document.getElementById(id).style.left = px + 'px';
+    document.getElementById(id).style.top = py + 'px';
+  });
+}, {passive:true});
+
+// ── Random idle expressions ───────────────────────────────────
+const idleExpressions = ['idle','smirk','eyeroll'];
+setInterval(() => {
+  if (!isListening && !isSpeaking) {
+    const ex = idleExpressions[Math.floor(Math.random() * idleExpressions.length)];
+    setExpression(ex);
+    setTimeout(() => setExpression('idle'), 2000);
+  }
+}, 8000);
+
+// ── Preload voices ────────────────────────────────────────────
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => {
+    configureVoice();
+  };
+}
+
+// ── Init ──────────────────────────────────────────────────────
+createParticles();
+updateOrb('RUDY');
+setExpression('smirk');
+checkPermissions();
+
+setTimeout(() => {
+  configureVoice();
+  if (!voiceConfigured) {
+    window.speechSynthesis.getVoices();
+    configureVoice();
+  }
+}, 500);
+</script>
+
+<!-- MediaPipe lazy load -->
+<script>
+window.addEventListener('load', () => {
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.js';
+  s.onload = () => { window.VisionTasks = window; };
+  s.onerror = () => { console.log('MediaPipe failed to load — photo roast will use basic mode'); };
+  document.head.appendChild(s);
+});
+</script>
+
+</body>
+</html>
